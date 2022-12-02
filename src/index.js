@@ -91,11 +91,11 @@ app.use("/exemplo", require("./routes/exemplo"));
 //Criação de um end point para teste
 const DBPATH = '../data/database.db';
 
-app.post('/teste', urlencodedParser, (req, res) => {
+app.get('/teste', urlencodedParser, (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
-	sql = "INSERT INTO pessoa (nome, email) VALUES ('" + req.body.nome + "','" + req.body.email + "')";
+	sql = "INSERT INTO pessoa (nome, email) VALUES ('" + req.query.nome + "','" + req.query.email + "')";
 	console.log(sql);
 	db.run(sql, [],  err => {
 		if (err) {
