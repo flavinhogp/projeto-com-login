@@ -87,7 +87,27 @@ app.use((req, res, next) => {
 
 app.use("/", require("./routes/index"));
 app.use("/exemplo", require("./routes/exemplo"));
-app.use("/teste", require("./routes/teste"));
+
+//Criação de um end point para teste
+const DBPATH = '../data/database.db';
+
+app.post('/teste', urlencodedParser, (req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
+	var db = new sqlite3.Database(DBPATH); // Abre o banco
+	sql = "INSERT INTO pessoa (nome, email) VALUES ('" + req.body.nome + "','" + req.body.email + "')";
+	console.log(sql);
+	db.run(sql, [],  err => {
+		if (err) {
+		    throw err;
+		}
+		
+	});
+	res.write('<a href="/">VOLTAR</a>');
+	db.close(); 
+	res.end();
+});
+
 
 // Depois de registrados todos os caminhos das rotas e seus tratadores, registramos
 // os tratadores que serão chamados caso nenhum dos tratadores anteriores tenha
