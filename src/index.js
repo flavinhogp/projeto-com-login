@@ -88,7 +88,9 @@ app.use((req, res, next) => {
 app.use("/", require("./routes/index"));
 app.use("/exemplo", require("./routes/exemplo"));
 
-//Criação de um end point para teste
+//Criação de um end point para teste sem usar ejs
+const bodyParser = require('body-parser');
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const DBPATH = '../data/database.db';
 
 app.get('/teste', urlencodedParser, (req, res) => {
