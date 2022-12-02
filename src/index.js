@@ -103,7 +103,6 @@ app.get('/teste', urlencodedParser, (req, res) => {
 		if (err) {
 		    throw err;
 		}
-		
 	});
 	res.write('<a href="/">VOLTAR</a>');
 	db.close(); 
